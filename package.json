@@ -1,0 +1,32 @@
+{
+  "name": "teste-dev-smarkio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd src && nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabrielfreitas11/teste-dev-smarkio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gabrielfreitas11/teste-dev-smarkio/issues"
+  },
+  "homepage": "https://github.com/Gabrielfreitas11/teste-dev-smarkio#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "ibm-watson": "^5.7.1",
+    "jquery": "^3.5.1",
+    "marko": "^4.22.1",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.6",
+    "path": "^0.12.7",
+    "watson-developer-cloud": "^4.0.1"
+  }
+}

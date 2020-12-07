@@ -1,0 +1,107 @@
+
+button {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bolder;
+    border-radius: 5px;
+    width: 100;
+}
+
+textarea {
+    min-height: 200px;
+    resize: none;
+    outline: none;
+}
+
+#direita {
+    margin: 10px 0px 10px 0px;
+    border-top: 12px solid yellow;
+}
+
+#direita h3 {
+    margin-top: 10px;
+}
+
+#direita .individual p{
+    min-height: 60px;
+    background-color: honeydew;
+    border-radius: 2px;
+    padding: 2px;
+}
+
+#direita .conteudo button {
+    text-align: center;
+    max-height: 30px;
+    margin: auto 0 auto 0;
+    outline: none;
+}
+
+#direita .conteudo button:hover {
+    transition: ease-in 2s;
+    transform: scale(1.05);
+}
+
+#direita .conteudo .frase {
+    word-break: break-all;
+}
+
+  
+@media screen and (min-width: 768px) {
+    #total {
+        padding: 0px 40px 0 40px;
+        flex-direction: row !important;
+    }
+    #direita {
+        padding-left: 100px;
+        border-left: brown 5px solid !important;
+        border-top: 0;
+        margin: 0;
+    }
+
+    #esquerda {
+        padding-right: 100px;
+        margin: 0;
+    }
+
+    #direita, #esquerda {
+       width: 50% !important;
+    }
+
+    #esquerda h3 {
+        margin-top: 10px !important;
+    }
+
+    #esquerda button {
+        font-size: 22px;
+        margin-top: 30px;
+        min-height: 40px;
+    }
+
+    #esquerda button:hover {
+        transition: ease-in 1s;
+        transform: scale(1.01);
+        background-color: #4b8ace;
+    }
+
+    #esquerda textarea {
+        padding: 5px 0 0 10px ;
+    }
+
+    #direita .individual, #esquerda textarea{
+        margin: 0 !important;
+        margin-top: 20px !important;
+    }
+
+    #direita .individual p {
+        width: 85% !important;
+        min-height: 120px;
+        padding: 5px 10px 0 10px ;
+    }
+
+    #direita .individual button {
+        margin-left: 25px;
+        font-size: 20px;
+        min-height: 40px;
+        min-width: 120px;
+    }
+
+}

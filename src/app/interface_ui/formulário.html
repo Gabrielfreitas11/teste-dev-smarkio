@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Smarkio</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style type="text/css">
+        main{
+        background: rgb(124, 122, 122);
+        width: 70%;
+        margin: 0 auto;
+        padding: 20px;
+        display: block
+        }
+        label{
+        display: block;
+        margin-top: 15px
+        }
+        .full{
+        width: 100%
+        }
+        .altura{
+        height: 300px
+        }
+        .direita {
+        position: absolute;
+        right: 300px;
+        padding: 10px;
+        }
+        </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $.ajax({
+            url: "http://localhost:3001/testeIBMSmarkio/buscaComentarios",
+            type: "GET",
+            crossDomain: true,
+            dataType: "json",
+        
+        }).done(function(data){  
+            data.forEach(x => {   
+                $("#lista").append("<li>  <div class='d-flex w-100 mt-2 justify-content-between individual'> <div class='w-75 m-0 frase' id='comentario_" + x.idcomentarios + "'>" + x.comentarioscol + "</div>  <button class='ouvir' type='button' id='ouvir_" + x.idcomentarios + "'>Ouvir </button> </div> </li>");
+            });
+        }).fail(function(error){
+            console.log(error);
+        })
+    </script>
+</head>
+<body class="p-3">
+<script>
+ $(document).ready(function(){
+     $("#button").click(function(){
+        $.ajax({
+            url: "http://localhost:3001/testeIBMSmarkio/insertComentarios",
+            type: "POST",
+            crossDomain: true,
+            dataType: "json",
+            data: {
+                comentario: $("#mensagem").val()
+            },
+        }).done(function(data){
+                $.ajax({
+                url: "http://localhost:3001/testeIBMSmarkio/buscaComentarios",
+                type: "GET",
+                crossDomain: true,
+                dataType: "json",
+            
+            }).done(function(data){  
+                $("#lista").prepend("<li>  <div class='d-flex w-100 mt-2 justify-content-between individual'> <div class='w-75 m-0 frase' id='comentario_" + data[0].idcomentarios + "'> " + data[0].comentarioscol + "</div> <button class='ouvir newButton_" + data[0].idcomentarios + "' type='button' id='ouvir_" + data[0].idcomentarios + "'>Ouvir </button> </div> </li>");
+                    console.log('.newButton_' + data[0].idcomentarios);    
+                $('.newButton_' + data[0].idcomentarios).on('click', (e) => {
+                        $('.ouvir').prop('disabled', true)
+                        let idBotao = e.target.id;
+                        let idTexto = "#comentario" + idBotao.substring(idBotao.indexOf('_'), idBotao.length);
+                        let number = data[0].idcomentarios;
+                            $.post({
+                                method: "POST",
+                                dataType: "json",
+                                crossDomain: true,
+                                data: { text: $(idTexto).text() },
+                                url: "http://localhost:3001/testeIBMSmarkio/textToSpeech",
+                            }).done(function(data, number){  
+                                let audio = new Audio('audio'+data+'.wav')
+                                audio.play()
+                                $('.ouvir').prop('disabled', false)
+                            }).fail(function(error){
+                                console.log(error);
+                            })
+                        });
+            }).fail(function(error){
+                console.log(error);
+            });
+        }).fail(function(error){
+            console.log(error);
+        })
+    });
+
+    $('.ouvir').on('click', (e) => {
+        $('.ouvir').prop('disabled', true)
+        let idBotao = e.target.id;
+        let idTexto = "#comentario" + idBotao.substring(idBotao.indexOf('_'), idBotao.length);
+            $.post({
+                method: "POST",
+                dataType: "json",
+                crossDomain: true,
+                data: { text: $(idTexto).text() },
+                url: "http://localhost:3001/testeIBMSmarkio/textToSpeech",
+            }).done(function(data){  
+                let audio = new Audio('audio'+data+'.wav')
+                audio.play()
+                $('.ouvir').prop('disabled', false)
+            }).fail(function(error){
+                console.log(error);
+            })
+        });
+ });
+</script>
+    <link rel="stylesheet" type="text/css" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+    <div id="total" class="d-flex flex-column w-100">
+        <div id="esquerda" class="w-100 d-flex flex-column align-items-center">
+            <label for="mensagem">Digite seu comentáio:</label>
+            <textarea class="w-100" id="mensagem" name="comentario" autofocus></textarea>
+            <br><br>
+            <input class="w-100" type="submit" id="button" value="Cadastrar comentário">
+        </div>
+            <div id="direita" class="w-100 d-flex flex-column align-items-around">
+                <label for="mensagem">Comentários:</label>
+                <ul id="lista"></ul>
+            </div>
+        </div>        
+    </div>
+</body>
+</html>
