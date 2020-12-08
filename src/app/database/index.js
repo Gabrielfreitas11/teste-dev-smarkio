@@ -6,7 +6,7 @@ async function connect() {
 
     const mysql = require('mysql2/promise');
     // Credenciais do banco MYSQL
-    const connection = await mysql.createConnection('mysql://usuario:password@host/nome-do-banco');
+    const connection = await mysql.createConnection('mysql://usuario:senha@host/nome-do-banco');
 
     console.log('Conectou no mysql');
     global.connection = connection; 
